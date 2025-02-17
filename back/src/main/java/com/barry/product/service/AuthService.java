@@ -1,5 +1,6 @@
 package com.barry.product.service;
 
+import com.barry.product.dto.response.JwtTokenResponse;
 import com.barry.product.exception.NotFoundException;
 import com.barry.product.modele.User;
 import com.barry.product.repository.UserRepository;
@@ -21,7 +22,7 @@ public class AuthService {
         this.jwtUtil = jwtUtil;
     }
 
-    public String authenticateUser(String email, String password) {
+    public JwtTokenResponse authenticateUser(String email, String password) {
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new NotFoundException("Utilisateur non trouvé"));
 
@@ -29,7 +30,6 @@ public class AuthService {
             throw new NotFoundException("Mot de passe incorrect");
         }
 
-        // 🔥 Génération du token JWT
-        return jwtUtil.generateToken(user.getEmail(), user.getUsername());
+        return new JwtTokenResponse(email, jwtUtil.generateToken(user.getEmail(), user.getUsername()));
     }
 }

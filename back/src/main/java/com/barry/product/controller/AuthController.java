@@ -3,6 +3,7 @@ package com.barry.product.controller;
 import com.barry.product.annotations.ApiRestController;
 import com.barry.product.dto.request.LoginRequest;
 import com.barry.product.dto.request.UserRequest;
+import com.barry.product.dto.response.JwtTokenResponse;
 import com.barry.product.dto.response.UserResponse;
 import com.barry.product.service.AuthService;
 import com.barry.product.service.UserService;
@@ -25,8 +26,7 @@ public class AuthController {
     }
 
     @PostMapping("/token")
-    public ResponseEntity<String> generateToken(@RequestBody LoginRequest loginRequest) {
-        String token = authService.authenticateUser(loginRequest.getEmail(), loginRequest.getPassword());
-        return ResponseEntity.ok(token);
+    public ResponseEntity<JwtTokenResponse> generateToken(@RequestBody LoginRequest loginRequest) {
+        return ResponseEntity.ok(authService.authenticateUser(loginRequest.getEmail(), loginRequest.getPassword()));
     }
 }
