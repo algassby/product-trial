@@ -2,7 +2,9 @@ package com.barry.product.service;
 
 import com.barry.product.dto.request.UserRequest;
 import com.barry.product.dto.response.UserResponse;
+import com.barry.product.exception.AlreadyExistsException;
 import com.barry.product.mapper.UserMapper;
+import com.barry.product.modele.RoleEnum;
 import com.barry.product.modele.User;
 import com.barry.product.repository.RoleRepository;
 import com.barry.product.repository.UserRepository;
@@ -21,8 +23,18 @@ public class UserService {
     private final RoleRepository  roleRepository;
 
     public UserResponse createUser(UserRequest userRequest) {
+
+        if(userRepository.existsByEmail(userRequest.getEmail())){
+            throw new AlreadyExistsException("User already exists with email " +  userRequest.getUsername());
+        }
+
+        if(userRepository.existsByUsername(userRequest.getUsername())){
+            throw new AlreadyExistsException("User already exists with username " +  userRequest.getUsername());
+        }
+
         User user = userMapper.toUser(userRequest);
-        roleRepository.findByName("ROLE_USER").ifPresent( role->{
+
+        roleRepository.findByName(RoleEnum.ROLE_USER.name()).ifPresent(role->{
                  user.getRoles().add(role);
                 }
 

@@ -12,11 +12,9 @@ public interface UserMapper {
     
     UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);
 
-    // Convertit UserRequest en User (pour sauvegarde)
     @Mapping(target = "id", ignore = true) // ID géré par la base
     @Mapping(target = "password", ignore = true) // Hashé ailleurs
     User toUser(UserRequest userRequest);
 
-    // Convertit User en UserResponse (pour réponse API)
     UserResponse toUserResponse(User user);
 }
