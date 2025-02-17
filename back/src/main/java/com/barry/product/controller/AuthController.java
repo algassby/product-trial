@@ -1,5 +1,6 @@
 package com.barry.product.controller;
 
+import com.barry.product.annotations.ApiRestController;
 import com.barry.product.dto.request.LoginRequest;
 import com.barry.product.dto.request.UserRequest;
 import com.barry.product.dto.response.UserResponse;
@@ -9,11 +10,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
-@RestController
-@RequestMapping
+@ApiRestController
 @RequiredArgsConstructor
 public class AuthController {
 

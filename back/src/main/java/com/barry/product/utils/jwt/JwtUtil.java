@@ -4,6 +4,7 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
@@ -21,6 +22,8 @@ import java.util.function.Function;
 public class JwtUtil {
 
     private static final String SECRET_KEY = "mySuperSecretKeyForJWT"; // 🔐 À stocker en variable d'env !
+
+    @Value("${spring.application.name}")
     private String apiName;
 
     private static final long EXPIRATION_TIME = 1000 * 60 * 60 * 10; // 10 heures

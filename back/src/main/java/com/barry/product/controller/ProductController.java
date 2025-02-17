@@ -1,5 +1,6 @@
 package com.barry.product.controller;
 
+import com.barry.product.annotations.ApiRestController;
 import com.barry.product.dto.request.ProductRequest;
 import com.barry.product.dto.response.ProductResponse;
 import com.barry.product.service.ProductService;
@@ -9,8 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
-@RequestMapping("/api/products")
+@ApiRestController("/products")
 public class ProductController {
 
     private final ProductService productService;
