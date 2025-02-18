@@ -30,6 +30,6 @@ public class AuthService {
             throw new NotFoundException("Mot de passe incorrect");
         }
 
-        return new JwtTokenResponse(email, jwtUtil.generateToken(user.getEmail(), user.getUsername()));
+        return new JwtTokenResponse(email, jwtUtil.generateToken(user.getEmail()));
     }
 }

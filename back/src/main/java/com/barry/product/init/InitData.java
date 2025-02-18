@@ -24,7 +24,6 @@ public class InitData implements CommandLineRunner {
     private final UserMapper userMapper;
     private final BCryptPasswordEncoder passwordEncoder;
 
-
     @Override
     public void run(String... args) throws Exception {
         initRole();
@@ -44,7 +43,7 @@ public class InitData implements CommandLineRunner {
 
     private void initAdmin(){
         var userRequest = UserRequest.builder()
-                .email(environment.getProperty("application.admin"))
+                .email(environment.getProperty("application.admin.email"))
                 .firstname("Algassimou")
                 .username("admin")
                 .build();

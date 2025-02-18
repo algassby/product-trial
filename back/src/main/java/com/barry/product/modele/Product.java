@@ -43,7 +43,8 @@ public class Product extends Audit {
     @Column(name = "inventory_status", nullable = false)
     private InventoryStatus inventoryStatus;
 
-    private double rating;
+    private int rating;
+
 
     @Override
     public boolean equals(Object o) {
@@ -57,4 +58,6 @@ public class Product extends Audit {
     public int hashCode() {
         return getClass().hashCode();
     }
+
+
 }

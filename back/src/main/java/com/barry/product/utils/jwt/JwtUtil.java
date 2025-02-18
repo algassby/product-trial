@@ -1,75 +1,86 @@
 package com.barry.product.utils.jwt;
 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import javax.crypto.SecretKey;
 import java.security.Key;
-import java.util.Base64;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Function;
 
 @Component
 public class JwtUtil {
 
-    private static final String SECRET_KEY = generateSecretKey(); // 🔐 À stocker en variable d'env !
+    @Value("${jwt.secret}")
+    private String secretKey;
 
     @Value("${spring.application.name}")
     private String apiName;
 
-    private static final long EXPIRATION_TIME = 3600000; // 10 heures
+    private static final long EXPIRATION_TIME = 6000000;
 
-    // ✅ Génère un token pour un utilisateur
-    public String generateToken(String email, String username) {
+    public String generateToken(String email) {
         Map<String, Object> claims = new HashMap<>();
-        claims.put("username", username); // Ajout d'informations dans le token
+        claims.put("email", email); // Ajout d'informations dans le token
         return createToken(claims, email);
     }
 
-    // 🔐 Crée le token JWT signé
     private String createToken(Map<String, Object> claims, String subject) {
-        long nowMillis = System.currentTimeMillis();
         return Jwts.builder()
-                .claims(claims)
-                .subject(subject)
-                .issuer(apiName)
-                .issuedAt(new Date(EXPIRATION_TIME))
-                .expiration(new Date(nowMillis + EXPIRATION_TIME))
+                .setClaims(claims)
+                .setSubject(subject)
+                .setIssuer(apiName)
+                .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
                 .signWith(getSigningKey())
                 .compact();
     }
 
-    public String getUsername(String token){
-
-        return Jwts.parser()
-                .verifyWith((SecretKey) getSigningKey())
-                .build()
-                .parseSignedClaims(token)
-                .getPayload()
-                .getSubject();
+    public String extractUsername(String token){
+        return extractClaim(token, Claims::getSubject);
     }
 
     // validate JWT token
     public boolean validateToken(String token){
-        Jwts.parser()
-                .verifyWith((SecretKey) getSigningKey())
+       return !isTokenExpired(token);
+
+    }
+
+    private boolean isTokenExpired(String token) {
+        return extractExpiration(token).before(new Date());
+    }
+
+    private Date extractExpiration(String token) {
+        return extractClaim(token, Claims::getExpiration);
+    }
+
+    public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
+        final Claims claims = extractAllClaims(token);
+        return claimsResolver.apply(claims);
+    }
+
+    public String extractTokenFromJwt(HttpServletRequest request) {
+        String authHeader = request.getHeader("Authorization");
+        if (authHeader != null && authHeader.startsWith("Bearer ")) {
+            return authHeader.substring(7);
+        }
+        return null;
+    }
+
+    public Claims extractAllClaims(String token) {
+        return Jwts.parserBuilder()
+                .setSigningKey(getSigningKey())
                 .build()
-                .parse(token);
-        return true;
-
+                .parseClaimsJws(token)
+                .getBody();
     }
-
-    // Générer une clé sécurisée (Base64)
-    private static String generateSecretKey() {
-        Key key = Jwts.SIG.HS256.key().build(); // Génère une clé de 256 bits
-        return Base64.getEncoder().encodeToString(key.getEncoded());
-    }
-
     private Key getSigningKey(){
-        return Keys.hmacShaKeyFor(Decoders.BASE64.decode(SECRET_KEY));
+        return Keys.hmacShaKeyFor(Decoders.BASE64.decode(secretKey));
     }
 }
+
