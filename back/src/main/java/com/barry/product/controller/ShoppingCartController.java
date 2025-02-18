@@ -1,13 +1,13 @@
 package com.barry.product.controller;
 
+import com.barry.product.annotations.ApiRestController;
 import com.barry.product.dto.request.CartItemRequestDTO;
 import com.barry.product.dto.response.ShoppingCartResponseDTO;
 import com.barry.product.service.ShoppingCartService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
-@RequestMapping("/cart")
+@ApiRestController("/cart")
 @RequiredArgsConstructor
 public class ShoppingCartController {
 
