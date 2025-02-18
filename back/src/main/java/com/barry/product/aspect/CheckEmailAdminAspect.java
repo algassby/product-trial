@@ -1,6 +1,6 @@
 package com.barry.product.aspect;
 
-import com.barry.product.utils.CheckEmailAdminPredicate;
+import com.barry.product.utils.predicate.CheckEmailAdminPredicate;
 import com.barry.product.utils.jwt.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.aspectj.lang.annotation.Aspect;

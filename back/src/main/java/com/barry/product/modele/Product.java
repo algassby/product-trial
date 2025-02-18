@@ -4,10 +4,12 @@ import com.barry.product.audit.Audit;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.Hibernate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.util.Objects;
 
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 @Table(name = "products")
 @Getter
 @Setter
@@ -54,6 +56,21 @@ public class Product extends Audit {
         return id != 0 && Objects.equals(id, product.id);
     }
 
+    @PrePersist
+    @PreUpdate
+    public void updateStatusBeforeSave() {
+        updateInventoryStatus();
+    }
+
+    public void updateInventoryStatus() {
+        if (this.quantity > 10) {
+            this.inventoryStatus = InventoryStatus.INSTOCK;
+        } else if (this.quantity > 0) {
+            this.inventoryStatus = InventoryStatus.LOWSTOCK;
+        } else {
+            this.inventoryStatus = InventoryStatus.OUTOFSTOCK;
+        }
+    }
     @Override
     public int hashCode() {
         return getClass().hashCode();

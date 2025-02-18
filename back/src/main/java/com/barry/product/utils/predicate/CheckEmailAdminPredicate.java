@@ -1,4 +1,4 @@
-package com.barry.product.utils;
+package com.barry.product.utils.predicate;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.env.Environment;
