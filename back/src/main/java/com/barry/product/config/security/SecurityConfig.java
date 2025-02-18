@@ -37,21 +37,21 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
-            .csrf(AbstractHttpConfigurer::disable) // ✅ Désactiver CSRF (utile pour API REST)
-            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // ✅ API sans session
+            .csrf(AbstractHttpConfigurer::disable)
+            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers(AUTHORIZED_PATHS).permitAll() // ✅ Autoriser ces routes sans authentification
-                .anyRequest().authenticated() // ✅ Toute autre requête doit être authentifiée
+                .requestMatchers(AUTHORIZED_PATHS).permitAll()
+                .anyRequest().authenticated()
             )
             .addFilterBefore(new JwtAuthenticationFilter(jwtUtil, userDetailsService),
-                    UsernamePasswordAuthenticationFilter.class); // ✅ Ajout du filtre JWT
+                    UsernamePasswordAuthenticationFilter.class);
 
         return httpSecurity.build();
     }
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder(); // ✅ Sécurisation des mots de passe avec BCrypt
+        return new BCryptPasswordEncoder();
     }
 
     @Bean

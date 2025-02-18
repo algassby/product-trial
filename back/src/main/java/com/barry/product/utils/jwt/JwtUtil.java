@@ -45,7 +45,6 @@ public class JwtUtil {
         return extractClaim(token, Claims::getSubject);
     }
 
-    // validate JWT token
     public boolean validateToken(String token){
        return !isTokenExpired(token);
 

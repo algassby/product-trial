@@ -1,4 +1,4 @@
-package com.barry.product.audit;
+package com.barry.product.audit.impl;
 
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.security.core.context.SecurityContextHolder;

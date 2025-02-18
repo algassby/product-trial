@@ -20,7 +20,7 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/account")
-    public ResponseEntity<?> createAccount(@RequestBody UserRequest userRequest) {
+    public ResponseEntity<UserResponse> createAccount(@RequestBody UserRequest userRequest) {
         UserResponse userResponse = userService.createUser(userRequest);
         return ResponseEntity.ok(userResponse);
     }

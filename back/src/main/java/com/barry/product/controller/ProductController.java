@@ -6,19 +6,17 @@ import com.barry.product.dto.request.ProductRequest;
 import com.barry.product.dto.response.ProductResponse;
 import com.barry.product.service.ProductService;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @ApiRestController("/products")
+@RequiredArgsConstructor
 public class ProductController {
 
     private final ProductService productService;
-
-    public ProductController(ProductService productService) {
-        this.productService = productService;
-    }
 
     @GetMapping
     public List<ProductResponse> getAllProducts() {

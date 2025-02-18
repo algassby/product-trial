@@ -6,13 +6,11 @@ import com.barry.product.modele.CartItem;
 import com.barry.product.modele.ShoppingCart;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.factory.Mappers;
 
 import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface ShoppingCartMapper {
-    ShoppingCartMapper INSTANCE = Mappers.getMapper(ShoppingCartMapper.class);
 
     @Mapping(source = "product.id", target = "productId")
     @Mapping(source = "product.name", target = "productName")

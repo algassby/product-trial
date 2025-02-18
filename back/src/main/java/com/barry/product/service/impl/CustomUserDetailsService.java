@@ -1,4 +1,4 @@
-package com.barry.product.service;
+package com.barry.product.service.impl;
 
 import com.barry.product.modele.User;
 import com.barry.product.repository.UserRepository;

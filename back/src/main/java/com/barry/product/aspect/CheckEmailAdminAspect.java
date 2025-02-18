@@ -1,7 +1,6 @@
 package com.barry.product.aspect;
 
 import com.barry.product.utils.predicate.CheckEmailAdminPredicate;
-import com.barry.product.utils.jwt.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
@@ -16,7 +15,6 @@ import org.springframework.web.server.ResponseStatusException;
 @RequiredArgsConstructor
 public class CheckEmailAdminAspect {
 
-    private final JwtUtil jwtUtil;
     private final CheckEmailAdminPredicate checkEmailAdminPredicate;
 
     @Pointcut("@annotation(com.barry.product.annotations.CheckEmail)")
