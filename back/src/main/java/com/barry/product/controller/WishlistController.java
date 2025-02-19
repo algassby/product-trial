@@ -1,6 +1,7 @@
 package com.barry.product.controller;
 
 import com.barry.product.annotations.ApiRestController;
+import com.barry.product.annotations.CheckCurrentUserIdentification;
 import com.barry.product.dto.request.WishlistRequestDTO;
 import com.barry.product.dto.response.WishlistResponseDTO;
 import com.barry.product.service.WishlistService;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 @ApiRestController("/wishlist")
 @RequiredArgsConstructor
+@CheckCurrentUserIdentification
 public class WishlistController {
 
     private final WishlistService wishlistService;

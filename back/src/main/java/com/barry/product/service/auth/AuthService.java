@@ -1,4 +1,4 @@
-package com.barry.product.service;
+package com.barry.product.service.auth;
 
 import com.barry.product.dto.response.JwtTokenResponse;
 

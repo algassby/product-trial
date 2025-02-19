@@ -5,7 +5,7 @@ import com.barry.product.dto.request.LoginRequest;
 import com.barry.product.dto.request.UserRequest;
 import com.barry.product.dto.response.JwtTokenResponse;
 import com.barry.product.dto.response.UserResponse;
-import com.barry.product.service.AuthService;
+import com.barry.product.service.auth.AuthService;
 import com.barry.product.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

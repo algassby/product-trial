@@ -4,7 +4,7 @@ import com.barry.product.dto.response.JwtTokenResponse;
 import com.barry.product.exception.NotFoundException;
 import com.barry.product.modele.User;
 import com.barry.product.repository.UserRepository;
-import com.barry.product.service.AuthService;
+import com.barry.product.service.auth.AuthService;
 import com.barry.product.utils.jwt.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -26,6 +26,6 @@ public class AuthServiceImpl implements AuthService {
             throw new NotFoundException("Mot de passe incorrect");
         }
 
-        return new JwtTokenResponse(email, jwtUtil.generateToken(user.getEmail()));
+        return new JwtTokenResponse(user.getEmail(), jwtUtil.generateToken(user));
     }
 }

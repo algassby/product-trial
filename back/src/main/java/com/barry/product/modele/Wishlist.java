@@ -21,7 +21,7 @@ public class Wishlist {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String userId; // Lier la wishlist à un utilisateur
+    private String userId;
 
     @ManyToMany
     @JoinTable(

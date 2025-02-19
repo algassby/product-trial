@@ -1,5 +1,6 @@
 package com.barry.product.utils.jwt;
 
+import com.barry.product.modele.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
@@ -12,6 +13,7 @@ import java.security.Key;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 import java.util.function.Function;
 
 @Component
@@ -25,16 +27,19 @@ public class JwtUtil {
 
     private static final long EXPIRATION_TIME = 6000000;
 
-    public String generateToken(String email) {
+    public String generateToken(User user) {
         Map<String, Object> claims = new HashMap<>();
-        claims.put("email", email); // Ajout d'informations dans le token
-        return createToken(claims, email);
+        claims.put("email", user.getEmail());
+        claims.put("userId", user.getId());
+        return createToken(claims, user);
     }
 
-    private String createToken(Map<String, Object> claims, String subject) {
+    private String createToken(Map<String, Object> claims, User user) {
+
         return Jwts.builder()
+                .setId(UUID.randomUUID().toString())
                 .setClaims(claims)
-                .setSubject(subject)
+                .setSubject(user.getEmail())
                 .setIssuer(apiName)
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
                 .signWith(getSigningKey())
@@ -45,6 +50,9 @@ public class JwtUtil {
         return extractClaim(token, Claims::getSubject);
     }
 
+    public String extractUserId(String token){
+        return extractClaim(token, claims -> claims.get("userId", String.class));
+    }
     public boolean validateToken(String token){
        return !isTokenExpired(token);
 

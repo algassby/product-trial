@@ -1,6 +1,7 @@
 package com.barry.product.controller;
 
 import com.barry.product.annotations.ApiRestController;
+import com.barry.product.annotations.CheckCurrentUserIdentification;
 import com.barry.product.dto.request.CartItemRequestDTO;
 import com.barry.product.dto.response.ShoppingCartResponseDTO;
 import com.barry.product.service.ShoppingCartService;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 @ApiRestController("/cart")
 @RequiredArgsConstructor
+@CheckCurrentUserIdentification
 public class ShoppingCartController {
 
     private final ShoppingCartService shoppingCartService;

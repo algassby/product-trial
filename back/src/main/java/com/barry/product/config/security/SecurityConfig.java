@@ -20,7 +20,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    protected static final String[] AUTHORIZED_PATHS = { "/account", "/token",
+    protected static final String[] AUTHORIZED_PATHS = { "/auth/**",
             "/v3/api-docs/**",
             "/swagger-resources",
             "/swagger-resources/**",
