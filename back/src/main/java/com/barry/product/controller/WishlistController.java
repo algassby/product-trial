@@ -11,21 +11,23 @@ import org.springframework.web.bind.annotation.*;
 
 @ApiRestController("/wishlist")
 @RequiredArgsConstructor
-@CheckCurrentUserIdentification
 public class WishlistController {
 
     private final WishlistService wishlistService;
 
+    @CheckCurrentUserIdentification
     @PostMapping("/add")
     public ResponseEntity<WishlistResponseDTO> addProduct(@RequestBody WishlistRequestDTO requestDTO) {
         return ResponseEntity.ok(wishlistService.addProductToWishlist(requestDTO));
     }
 
+    @CheckCurrentUserIdentification
     @DeleteMapping("/remove")
     public ResponseEntity<WishlistResponseDTO> removeProduct(@RequestBody WishlistRequestDTO requestDTO) {
         return ResponseEntity.ok(wishlistService.removeProductFromWishlist(requestDTO));
     }
 
+    @CheckCurrentUserIdentification
     @GetMapping("/{userId}")
     public ResponseEntity<WishlistResponseDTO> getWishlist(@PathVariable String userId) {
         return ResponseEntity.ok(wishlistService.getUserWishlist(userId));

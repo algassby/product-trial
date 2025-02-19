@@ -18,6 +18,7 @@ import java.util.HashSet;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class WishlistServiceImpl implements WishlistService {
 
     private final WishlistRepository wishlistRepository;

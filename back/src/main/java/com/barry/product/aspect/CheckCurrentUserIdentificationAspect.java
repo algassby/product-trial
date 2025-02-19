@@ -22,6 +22,7 @@ import java.util.Map;
 @Component
 @RequiredArgsConstructor
 public class CheckCurrentUserIdentificationAspect {
+
     private final UserRepository userRepository;
     private final JwtUtil jwtUtil;
 
