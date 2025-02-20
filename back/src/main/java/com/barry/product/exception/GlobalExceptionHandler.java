@@ -57,6 +57,4 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(body);
     }
 
-    // Gestion d'autres exceptions génériques si nécessaire
-
 }
