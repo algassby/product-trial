@@ -51,8 +51,8 @@ public class InitData implements CommandLineRunner {
         var user = userMapper.toUser(userRequest);
 
         user.setPassword(passwordEncoder.encode(environment.getProperty("application.password")));
-        roleRepository.findByName(RoleEnum.ROLE_USER.name()).ifPresent( role-> user.getRoles().add(role));
-                roleRepository.findByName(RoleEnum.ROLE_ADMIN.name()).ifPresent( role-> user.getRoles().add(role));
+        roleRepository.findByName(RoleEnum.USER.name()).ifPresent( role-> user.getRoles().add(role));
+                roleRepository.findByName(RoleEnum.ADMIN.name()).ifPresent( role-> user.getRoles().add(role));
 
         if(!userRepository.existsByEmail(userRequest.getEmail()) || !userRepository.existsByUsername(userRequest.getUsername())){
             userRepository.save(user);

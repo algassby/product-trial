@@ -1,5 +1,6 @@
 package com.barry.product.controller;
 
+import com.barry.product.annotations.AdminOnly;
 import com.barry.product.annotations.ApiRestController;
 import com.barry.product.annotations.CheckEmail;
 import com.barry.product.dto.request.ProductRequest;
@@ -30,6 +31,7 @@ public class ProductController {
 
     @PostMapping
     @CheckEmail
+    @AdminOnly
     public ResponseEntity<ProductResponse> createProduct(@Valid @RequestBody ProductRequest productRequest) {
         return ResponseEntity.ok(productService.createProduct(productRequest));
     }
@@ -41,12 +43,14 @@ public class ProductController {
     }
 
     @PatchMapping("/{id}")
+    @AdminOnly
     public ResponseEntity<ProductResponse> partialUpdateProduct(@PathVariable int id, @Valid @RequestBody ProductRequest productRequest) {
         return ResponseEntity.ok(productService.partialUpdateProduct(id, productRequest));
     }
 
     @DeleteMapping("/{id}")
     @CheckEmail
+    @AdminOnly
     public ResponseEntity<Void> deleteProduct(@PathVariable int id) {
         productService.deleteProduct(id);
         return ResponseEntity.noContent().build();

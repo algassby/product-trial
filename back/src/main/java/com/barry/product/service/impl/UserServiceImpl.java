@@ -36,7 +36,7 @@ public class UserServiceImpl implements UserService {
 
         User user = userMapper.toUser(userRequest);
 
-        roleRepository.findByName(RoleEnum.ROLE_USER.name()).ifPresent(role->{
+        roleRepository.findByName(RoleEnum.USER.name()).ifPresent(role->{
                     user.getRoles().add(role);
                 }
 
