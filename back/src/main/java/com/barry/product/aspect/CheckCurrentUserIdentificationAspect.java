@@ -50,7 +50,7 @@ public class CheckCurrentUserIdentificationAspect {
                 }
             }
 
-            if (parameter.isAnnotationPresent(RequestBody.class)) {
+            if (parameter.isAnnotationPresent(RequestBody.class) && parameter.getName().equals("userId")) {
                 Object requestBody = args[i];
                 userId = extractFieldValue(requestBody, "userId");
             }

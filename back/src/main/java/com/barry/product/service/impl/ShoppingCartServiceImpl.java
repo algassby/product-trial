@@ -17,6 +17,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 @Service
@@ -53,10 +54,12 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         }
 
         Product product = productOpt.get();
+        cart.setItems(new ArrayList<>());
 
         Optional<CartItem> existingItem = cart.getItems().stream()
                 .filter(item -> item.getProduct().getId() == request.getProductId())
                 .findFirst();
+
 
         if (existingItem.isPresent()) {
             existingItem.get().setQuantity(existingItem.get().getQuantity() + request.getQuantity());
