@@ -15,20 +15,20 @@ public class WishlistController {
 
     private final WishlistService wishlistService;
 
-    @CheckCurrentUserIdentification
     @PostMapping("/add")
+    @CheckCurrentUserIdentification
     public ResponseEntity<WishlistResponseDTO> addProduct(@RequestBody WishlistRequestDTO requestDTO) {
         return ResponseEntity.ok(wishlistService.addProductToWishlist(requestDTO));
     }
 
-    @CheckCurrentUserIdentification
     @DeleteMapping("/remove")
+    @CheckCurrentUserIdentification
     public ResponseEntity<WishlistResponseDTO> removeProduct(@RequestBody WishlistRequestDTO requestDTO) {
         return ResponseEntity.ok(wishlistService.removeProductFromWishlist(requestDTO));
     }
 
-    @CheckCurrentUserIdentification
     @GetMapping("/{userId}")
+    @CheckCurrentUserIdentification
     public ResponseEntity<WishlistResponseDTO> getWishlist(@PathVariable String userId) {
         return ResponseEntity.ok(wishlistService.getUserWishlist(userId));
     }
